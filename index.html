@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <title>Skolansökningar</title>
+  </head>
+  <body>
+    <div id="content">
+      <div id="left">
+        <h1>Skolansökningar</h1>
+        <h2>Lista med elever</h2>
+        <ul id="leftList"></ul>
+      </div>
+      <div id="mid">
+        <select name="Education" id="sortE">
+          <option hidden >Choose Education</option>
+          <option value="front">Frontend</option>
+          <option value="back">Backend</option>
+          <option value=".net">.Net</option>
+        </select>
+        <button id="sortA">Sort Age</button>
+        <button id="sortFirst">Sort Firstname</button>
+        <button id="sortLast">Sort Lastname</button>
+      </div>
+      <div id="right">
+        <ul id="rightList"></ul>
+      </div>
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>

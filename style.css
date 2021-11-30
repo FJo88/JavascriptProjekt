@@ -1,0 +1,61 @@
+h1{
+    font-size: 2rem;
+    padding: 2rem;
+    margin: 2rem;
+}
+h2{
+    padding: 2rem;
+    margin: 3rem;
+}
+li{
+    font-size: 1.5rem;
+}
+ul{
+    list-style: none;
+}
+#left{
+    position: absolute;
+    left: 0%;
+}
+#mid{
+    position: absolute;
+    left: 30%;
+}
+#right{
+    
+    position: absolute;
+    top: 27%;
+    left: 48%;
+}
+#card{
+    padding: 2rem;
+    margin: 3rem;
+    border: solid 3px black;
+}
+#sortE{
+    font-size: 1.5rem;
+    margin: 2rem;
+    position: absolute;
+    margin-top: 20rem;
+}
+#sortA{
+    width: 14rem;
+    height: 5rem;
+    margin: 2rem;
+    position: absolute;
+    margin-top: 30rem;
+}
+#sortFirst{
+    width: 14rem;
+    height: 5rem;
+    margin: 2rem;
+    position: absolute;
+    margin-top: 40rem;
+}
+#sortLast{
+    width: 14rem;
+    height: 5rem;
+    margin: 2rem;
+    position: absolute;
+    margin-top: 50rem;
+}
