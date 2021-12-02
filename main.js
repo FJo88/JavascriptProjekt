@@ -1,6 +1,7 @@
 let studentList = document.querySelector("#leftList");
 let outputList = document.querySelector("#rightList")
 let sortEdu = document.querySelector("#sortE");
+let getEdu = document.querySelector("#getEdu");
 let sortAgeBtn = document.querySelector("#sortA");
 let sortFirstBtn = document.querySelector("#sortFirst");
 let sortLastBtn = document.querySelector("#sortLast");
@@ -10,14 +11,7 @@ let sortLastBtn = document.querySelector("#sortLast");
 
 
 
-let getSchools = async () => {
-    let response = await fetch("https://api.mocki.io/v2/01047e91/schools");
-    let data = await response.json();
-    
-    data.forEach((school) => {
-        console.log(school.programmes);
-    });
-}
+
 
 
 let getStudents = async () => {
@@ -25,9 +19,13 @@ let getStudents = async () => {
     let data = await response.json();
     data.forEach((student) => {
        createInputCard(student);
-       
     });
+
 }
+getEdu.addEventListener(("click"), () => {
+  outputList.textContent = "";
+  sortByEducation();
+})
 
 sortAgeBtn.addEventListener(("click"), ()=> {
     outputList.textContent = "";
@@ -44,7 +42,16 @@ sortLastBtn.addEventListener(("click"), ()=> {
     sortByLastName();
 });
 
-
+let sortByEducation = async () =>{
+  let response = await fetch("https://api.mocki.io/v2/01047e91/students");
+  let data = await response.json();
+  data.forEach((person) =>{
+    let programme = person.programme;
+      if(programme === sortEdu.value){
+        createOutPutCard(person);
+      }
+  })
+}
 
 let sortByAge = async () =>{
      let response = await fetch("https://api.mocki.io/v2/01047e91/students");
@@ -59,8 +66,8 @@ let sortByFirstName = async () =>{
     let response = await fetch("https://api.mocki.io/v2/01047e91/students");
     let data = await response.json();
     data.sort((a, b) => {
-        var nameA = a.firstName.toUpperCase(); // ignore upper and lowercase
-        var nameB = b.firstName.toUpperCase(); // ignore upper and lowercase
+        let nameA = a.firstName.toUpperCase(); 
+        let nameB = b.firstName.toUpperCase(); 
         if (nameA < nameB) {
           return -1;
         }
@@ -78,8 +85,8 @@ let sortByLastName = async () =>{
     let response = await fetch("https://api.mocki.io/v2/01047e91/students");
     let data = await response.json();
     data.sort((a, b) => {
-        var nameA = a.lastName.toUpperCase(); // ignore upper and lowercase
-        var nameB = b.lastName.toUpperCase(); // ignore upper and lowercase
+        let nameA = a.lastName.toUpperCase(); 
+        let nameB = b.lastName.toUpperCase(); 
         if (nameA < nameB) {
           return -1;
         }
@@ -92,6 +99,32 @@ let sortByLastName = async () =>{
         createOutPutCard(person);
      })
 }
+
+let getSchools = async (programme, hobbies) =>{
+  let response = await fetch("https://api.mocki.io/v2/01047e91/schools");
+    let schools = await response.json();
+      
+      schools.splice(0,1);
+      schools.splice(2,1);
+      let studentHobbies = hobbies;
+      
+      schools.forEach((school) =>{
+        let programmes = school.programmes;
+        let activities = school.activities;
+        if(programmes[0] === programme || programmes[1] === programme){
+          createSchoolCard(school);
+          
+        };
+        
+        // && activities[0] === hobbies || 
+        // activities[1] === hobbies || activities[2] === hobbies
+      });
+        //console.log(programme);
+       //console.log(programmes[0]);
+       console.log(studentHobbies);
+      }
+      
+    
 
 
 
@@ -112,14 +145,20 @@ let createInputCard = (student) => {
     let hobbies = document.createElement("li");
     hobbies.textContent = "Hobbies: " + student.hobbies;
     hobbies.style.color = "pink";
-    let study = document.createElement("li");
-    study.textContent = "Studies: " + student.programme;
+    let programme = document.createElement("li");
+    programme.textContent = "Programme: " + student.programme;
 
     card.appendChild(name);
     card.appendChild(lastName);
     card.appendChild(age);
     card.appendChild(hobbies);
-    card.appendChild(study);
+    card.appendChild(programme);
+
+    card.addEventListener(("click"), () =>{
+      outputList.textContent = "";
+      getSchools(student.programme, student.hobbies);
+
+    });
     studentList.appendChild(card);
 }
 
@@ -140,16 +179,38 @@ let createOutPutCard = (student) => {
     let hobbies = document.createElement("li");
     hobbies.textContent = "Hobbies: " + student.hobbies;
     hobbies.style.color = "pink";
-    let study = document.createElement("li");
-    study.textContent = "Studies: " + student.programme;
+    let programme = document.createElement("li");
+    programme.textContent = "Programme: " + student.programme;
 
     card.appendChild(name);
     card.appendChild(lastName);
     card.appendChild(age);
     card.appendChild(hobbies);
-    card.appendChild(study);
+    card.appendChild(programme);
     outputList.appendChild(card);
 }
+
+let createSchoolCard = (school) => {
+
+  let card = document.createElement("div")
+    card.id = "card";
+
+    let name = document.createElement("li");
+    name.textContent = "Name: " + school.name;
+    name.style.color = "red";
+    let activities = document.createElement("li");
+    activities.textContent = "Activities: " + school.activities;
+    activities.style.color = "green";
+    let programmes = document.createElement("li");
+    programmes.textContent = "Programmes: " + school.programmes;
+    programmes.style.color = "blue"
+
+    card.appendChild(name);
+    card.appendChild(activities);
+    card.appendChild(programmes);
+    outputList.appendChild(card);
+}
+
 getStudents();
 //getSchools();
 //sortByAge()

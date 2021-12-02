@@ -38,24 +38,31 @@ ul{
     position: absolute;
     margin-top: 20rem;
 }
-#sortA{
+#getEdu{
     width: 14rem;
     height: 5rem;
     margin: 2rem;
     position: absolute;
     margin-top: 30rem;
 }
-#sortFirst{
+#sortA{
     width: 14rem;
     height: 5rem;
     margin: 2rem;
     position: absolute;
     margin-top: 40rem;
 }
-#sortLast{
+#sortFirst{
     width: 14rem;
     height: 5rem;
     margin: 2rem;
     position: absolute;
     margin-top: 50rem;
+}
+#sortLast{
+    width: 14rem;
+    height: 5rem;
+    margin: 2rem;
+    position: absolute;
+    margin-top: 60rem;
 }
