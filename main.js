@@ -9,23 +9,18 @@ let sortLastBtn = document.querySelector("#sortLast");
 
 
 
-
-
-
-
-
 let getStudents = async () => {
     let response = await fetch("https://api.mocki.io/v2/01047e91/students");
     let data = await response.json();
     data.forEach((student) => {
        createInputCard(student);
     });
-
 }
+
 getEdu.addEventListener(("click"), () => {
   outputList.textContent = "";
   sortByEducation();
-})
+});
 
 sortAgeBtn.addEventListener(("click"), ()=> {
     outputList.textContent = "";
@@ -41,6 +36,7 @@ sortLastBtn.addEventListener(("click"), ()=> {
     outputList.textContent = "";
     sortByLastName();
 });
+
 
 let sortByEducation = async () =>{
   let response = await fetch("https://api.mocki.io/v2/01047e91/students");
@@ -78,7 +74,7 @@ let sortByFirstName = async () =>{
       });
     data.forEach((person) => {
         createOutPutCard(person);
-     })
+     });
 }
 
 let sortByLastName = async () =>{
@@ -97,13 +93,12 @@ let sortByLastName = async () =>{
       });
     data.forEach((person) => {
         createOutPutCard(person);
-     })
+     });
 }
 
 let getSchools = async (programme, hobbies) =>{
   let response = await fetch("https://api.mocki.io/v2/01047e91/schools");
     let schools = await response.json();
-      
       schools.splice(0,1);
       schools.splice(2,1);
       let studentHobbies = hobbies;
@@ -111,18 +106,20 @@ let getSchools = async (programme, hobbies) =>{
       schools.forEach((school) =>{
         let programmes = school.programmes;
         let activities = school.activities;
+
         if(programmes[0] === programme || programmes[1] === programme){
-          createSchoolCard(school);
-          
+           let hasActivity = false;
+            studentHobbies.forEach((hobby) =>{
+              if(activities.includes(hobby)){
+                hasActivity = true;
+              };
+            });
+          if(hasActivity === true){
+              createSchoolCard(school);
+          };
         };
-        
-        // && activities[0] === hobbies || 
-        // activities[1] === hobbies || activities[2] === hobbies
       });
-        //console.log(programme);
-       //console.log(programmes[0]);
-       console.log(studentHobbies);
-      }
+}
       
     
 
@@ -211,6 +208,6 @@ let createSchoolCard = (school) => {
     outputList.appendChild(card);
 }
 
-getStudents();
+getStudents()
 //getSchools();
 //sortByAge()
