@@ -46,24 +46,48 @@ ul{
     position: absolute;
     margin-top: 30rem;
 }
-#sortA{
-    width: 14rem;
+#sortAu{
+    width: 7rem;
     height: 5rem;
-    margin: 2rem;
+    margin: 1rem;
     position: absolute;
     margin-top: 40rem;
 }
-#sortFirst{
-    width: 14rem;
+#sortAd{
+    width: 7rem;
     height: 5rem;
     margin: 2rem;
+    position: absolute;
+    margin-left: 10rem;
+    margin-top: 40rem;
+}
+#sortFirstu{
+    width: 7rem;
+    height: 5rem;
+    margin: 1rem;
     position: absolute;
     margin-top: 50rem;
 }
-#sortLast{
-    width: 14rem;
+#sortFirstd{
+    width: 7rem;
     height: 5rem;
     margin: 2rem;
     position: absolute;
+    margin-left: 10rem;
+    margin-top: 50rem;
+}
+#sortLastu{
+    width: 7rem;
+    height: 5rem;
+    margin: 1rem;
+    position: absolute;
+    margin-top: 60rem;
+}
+#sortLastd{
+    width: 7rem;
+    height: 5rem;
+    margin: 2rem;
+    position: absolute;
+    margin-left: 10rem;
     margin-top: 60rem;
 }
