@@ -5,16 +5,19 @@ let getEdu = document.querySelector("#getEdu");
 let sortAgeBtn = document.querySelector("#sortA");
 let sortFirstBtn = document.querySelector("#sortFirst");
 let sortLastBtn = document.querySelector("#sortLast");
+let green = false;
+let yellow = false;
+let red = false;
+document.body.style.background = "lightblue";
 
 
 
-
-let getStudents = async () => {
-    let response = await fetch("https://api.mocki.io/v2/01047e91/students");
-    let data = await response.json();
-    data.forEach((student) => {
-       createInputCard(student);
-    });
+async function getStudents() {
+  let response = await fetch("https://api.mocki.io/v2/01047e91/students");
+  let data = await response.json();
+  data.forEach((student) => {
+    createInputCard(student);
+  });
 }
 
 getEdu.addEventListener(("click"), () => {
@@ -99,36 +102,42 @@ let sortByLastName = async () =>{
 let getSchools = async (programme, hobbies) =>{
   let response = await fetch("https://api.mocki.io/v2/01047e91/schools");
     let schools = await response.json();
-      schools.splice(0,1);
-      schools.splice(2,1);
+      // schools.splice(0,1);
+      // schools.splice(2,1);
+      
       let studentHobbies = hobbies;
       
       schools.forEach((school) =>{
         let programmes = school.programmes;
         let activities = school.activities;
+       
+     
 
-        if(programmes[0] === programme || programmes[1] === programme){
+    if(programmes[0] === programme || programmes[1] === programme){
            let hasActivity = false;
             studentHobbies.forEach((hobby) =>{
               if(activities.includes(hobby)){
                 hasActivity = true;
-              };
+                yellow = true;
+                };
             });
           if(hasActivity === true){
-              createSchoolCard(school);
+            createSchoolCard(school);
           };
-        };
-      });
+      }
+    });
+          
 }
       
+  
+
+      
     
-
-
-
 let createInputCard = (student) => {
 
     let card = document.createElement("div")
     card.id = "card";
+    card.style.background = "white";
 
     let name = document.createElement("li");
     name.textContent = "Firstname: " + student.firstName;
@@ -141,7 +150,7 @@ let createInputCard = (student) => {
     age.style.color = "blue"
     let hobbies = document.createElement("li");
     hobbies.textContent = "Hobbies: " + student.hobbies;
-    hobbies.style.color = "pink";
+    hobbies.style.color = "brown";
     let programme = document.createElement("li");
     programme.textContent = "Programme: " + student.programme;
 
@@ -162,7 +171,8 @@ let createInputCard = (student) => {
 let createOutPutCard = (student) => {
 
     let card = document.createElement("div")
-    card.id = "card";
+    card.id = "card"; 
+    card.style.background = "white";
 
     let name = document.createElement("li");
     name.textContent = "Firstname: " + student.firstName;
@@ -175,7 +185,7 @@ let createOutPutCard = (student) => {
     age.style.color = "blue"
     let hobbies = document.createElement("li");
     hobbies.textContent = "Hobbies: " + student.hobbies;
-    hobbies.style.color = "pink";
+    hobbies.style.color = "brown";
     let programme = document.createElement("li");
     programme.textContent = "Programme: " + student.programme;
 
@@ -191,16 +201,24 @@ let createSchoolCard = (school) => {
 
   let card = document.createElement("div")
     card.id = "card";
+    card.style.background ="white";
 
     let name = document.createElement("li");
     name.textContent = "Name: " + school.name;
-    name.style.color = "red";
+    name.style.color ="red";
+    // if(green){
+    //   name.style.color = "green";
+    // }
+    // else if(yellow){
+    //   name.style.color = "yellow";
+    // }
+    // else{
+    //    name.style.color = "red";
+    // }
     let activities = document.createElement("li");
     activities.textContent = "Activities: " + school.activities;
-    activities.style.color = "green";
     let programmes = document.createElement("li");
     programmes.textContent = "Programmes: " + school.programmes;
-    programmes.style.color = "blue"
 
     card.appendChild(name);
     card.appendChild(activities);
