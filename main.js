@@ -13,10 +13,7 @@ let searchButton = document.querySelector("#searchbutton");
 
 document.body.style.background = "lightblue";
 
-searchButton.addEventListener(("click"), () =>{
-  outputList.textContent = "";
-  findStudent();
-})
+
 
 async function getStudents() {
   let response = await fetch("https://api.mocki.io/v2/01047e91/students");
@@ -25,6 +22,11 @@ async function getStudents() {
     createInputCard(student);
   });
 }
+
+searchButton.addEventListener(("click"), () =>{
+  outputList.textContent = "";
+  findStudent();
+})
 
 getEdu.addEventListener(("click"), () => {
   outputList.textContent = "";
@@ -190,37 +192,53 @@ let sortByLastNameDown = async () =>{
    });
 }
 
-// let getSchools = async (programme, hobbies) =>{
-//   let response = await fetch("https://api.mocki.io/v2/01047e91/schools");
-//     let schools = await response.json();
-      
-//       let studentHobbies = hobbies;
-      
-//       schools.forEach((school) =>{
-//         let programmes = school.programmes;
-//         let activities = school.activities;
-      
-//         if(programmes[0] === programme || programmes[1] === programme){
-//            let hasActivity = false;
-//             studentHobbies.forEach((hobby) =>{
-//               if(activities.includes(hobby)){
-//                 hasActivity = true;
-//                 yellow = true;
-//                 };
-//             });
-//           if(hasActivity === true){
-//             createSchoolCard(school);
-//           };
-//       }
-//     });
-          
-// }
-      
-  
+ let getSchools = async (programme, hobbies) =>{
+   let response = await fetch("https://api.mocki.io/v2/01047e91/schools");
+     let schools = await response.json();
 
+
+      let studentHobbies = hobbies;
       
-    
-let createInputCard = (student) => {
+
+      schools.forEach((school) =>{
+        let allProgrammes = school.programmes;
+        let allActivities = school.activities;
+        
+        let card = document.createElement("div");
+        card.id = "card";
+        card.style.background = "white";
+         let name = document.createElement("li");
+         name.textContent = "Name: " + school.name;
+         name.style.color ="red";
+         let activities = document.createElement("li");
+         activities.textContent = "Activities: " + school.activities;
+         let programmes = document.createElement("li");
+         programmes.textContent = "Programmes: " + school.programmes;
+   
+         console.log(allProgrammes);
+          
+         
+       if(allProgrammes[0] === programme || allProgrammes[1] === programme){
+              let hasActivity = false;
+               studentHobbies.forEach((hobby) =>{
+                 if(allActivities.includes(hobby)){
+                   hasActivity = true;
+                 };
+            });
+             if(hasActivity === true){
+               name.style.color ="yellow";
+             }
+            }
+           
+          card.appendChild(name);
+          card.appendChild(activities);
+          card.appendChild(programmes);
+          outputList.appendChild(card);
+         });
+        }
+         
+
+  let createInputCard = (student) => {
 
     let card = document.createElement("div")
     card.id = "card";
