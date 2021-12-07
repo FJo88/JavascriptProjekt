@@ -8,10 +8,15 @@ let sortFirstUpBtn = document.querySelector("#sortFirstu");
 let sortFirstDownBtn = document.querySelector("#sortFirstd"); 
 let sortLastUpBtn = document.querySelector("#sortLastu");
 let sortLastDownBtn = document.querySelector("#sortLastd");
+let searchInput = document.querySelector("#search");
+let searchButton = document.querySelector("#searchbutton");
 
 document.body.style.background = "lightblue";
 
-
+searchButton.addEventListener(("click"), () =>{
+  outputList.textContent = "";
+  findStudent();
+})
 
 async function getStudents() {
   let response = await fetch("https://api.mocki.io/v2/01047e91/students");
@@ -56,6 +61,29 @@ sortLastDownBtn.addEventListener(("click"), ()=> {
   sortByLastNameDown();
 });
 
+
+let findStudent = async () =>{
+  let response = await fetch("https://api.mocki.io/v2/01047e91/students");
+  let data = await response.json();
+  
+  let input = searchInput.value.toLowerCase();
+  
+  data.forEach((student) =>{
+    let hobbies = student.hobbies;
+   if(input === student.firstName.toLowerCase()){
+     createOutPutCard(student);
+   }
+   else if(input === student.lastName.toLowerCase()){
+     createOutPutCard(student);
+   }
+   else if(input === student.programme.toLowerCase()){
+     createOutPutCard(student);
+   }
+   else if(input === hobbies[0] || input === hobbies[1] || input === hobbies[2]){
+     createOutPutCard(student);
+   }
+  })
+}
 
 let sortByEducation = async () =>{
   let response = await fetch("https://api.mocki.io/v2/01047e91/students");

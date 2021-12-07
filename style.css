@@ -1,3 +1,25 @@
+#lefthead{
+    display: inline-block;
+
+}
+#righthead{
+    display: inline-block;
+    margin-left: 15rem;
+    align-items: center;
+}
+#search{
+    position: absolute;
+    top: 15%;
+    left: 30%;
+    font-size: 1.5rem;
+}
+#searchbutton{
+    font-size: 1.5rem;
+    position: absolute;
+    top: 15%;
+    left: 45%;
+}
+
 h1{
     font-size: 2rem;
     padding: 2rem;
@@ -25,7 +47,7 @@ ul{
 #right{
     
     position: absolute;
-    top: 27%;
+    top: 31%;
     left: 48%;
 }
 #card{
@@ -37,21 +59,21 @@ ul{
     font-size: 1.5rem;
     margin: 2rem;
     position: absolute;
-    margin-top: 20rem;
+    margin-top: 5rem;
 }
 #getEdu{
     width: 14rem;
     height: 5rem;
     margin: 2rem;
     position: absolute;
-    margin-top: 30rem;
+    margin-top: 15rem;
 }
 #sortAu{
     width: 7rem;
     height: 5rem;
     margin: 1rem;
     position: absolute;
-    margin-top: 40rem;
+    margin-top: 25rem;
 }
 #sortAd{
     width: 7rem;
@@ -59,14 +81,14 @@ ul{
     margin: 2rem;
     position: absolute;
     margin-left: 10rem;
-    margin-top: 40rem;
+    margin-top: 25rem;
 }
 #sortFirstu{
     width: 7rem;
     height: 5rem;
     margin: 1rem;
     position: absolute;
-    margin-top: 50rem;
+    margin-top: 35rem;
 }
 #sortFirstd{
     width: 7rem;
@@ -74,14 +96,14 @@ ul{
     margin: 2rem;
     position: absolute;
     margin-left: 10rem;
-    margin-top: 50rem;
+    margin-top: 35rem;
 }
 #sortLastu{
     width: 7rem;
     height: 5rem;
     margin: 1rem;
     position: absolute;
-    margin-top: 60rem;
+    margin-top: 45rem;
 }
 #sortLastd{
     width: 7rem;
@@ -89,5 +111,5 @@ ul{
     margin: 2rem;
     position: absolute;
     margin-left: 10rem;
-    margin-top: 60rem;
+    margin-top: 45rem;
 }
