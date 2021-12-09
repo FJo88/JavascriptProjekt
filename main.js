@@ -196,10 +196,8 @@ let sortByLastNameDown = async () =>{
    let response = await fetch("https://api.mocki.io/v2/01047e91/schools");
      let schools = await response.json();
 
-
-      let studentHobbies = hobbies;
+    let studentHobbies = hobbies;
       
-
       schools.forEach((school) =>{
         let allProgrammes = school.programmes;
         let allActivities = school.activities;
@@ -215,10 +213,9 @@ let sortByLastNameDown = async () =>{
          let programmes = document.createElement("li");
          programmes.textContent = "Programmes: " + school.programmes;
    
-         console.log(allProgrammes);
-          
          
-       if(allProgrammes[0] === programme || allProgrammes[1] === programme){
+         
+         if(allProgrammes[0] === programme || allProgrammes[1] === programme){
               let hasActivity = false;
                studentHobbies.forEach((hobby) =>{
                  if(allActivities.includes(hobby)){
@@ -229,6 +226,20 @@ let sortByLastNameDown = async () =>{
                name.style.color ="yellow";
              }
             }
+
+          if(allProgrammes[0] === programme || allProgrammes[1] === programme){
+              let hasAll = true;
+               
+            for(let i = 0; i < studentHobbies.length; i++){
+              if((allActivities.indexOf(studentHobbies[i]) === -1)){
+                  hasAll = false;
+                }
+              }
+            if(hasAll === true){
+                name.style.color = "green";
+             }
+          }
+        
            
           card.appendChild(name);
           card.appendChild(activities);
@@ -302,27 +313,6 @@ let createOutPutCard = (student) => {
     outputList.appendChild(card);
 }
 
-// let createSchoolCard = (school) => {
 
-//   let card = document.createElement("div")
-//     card.id = "card";
-//     card.style.background ="white";
-
-//     let name = document.createElement("li");
-//     name.textContent = "Name: " + school.name;
-//     name.style.color ="red";
-  
-//     let activities = document.createElement("li");
-//     activities.textContent = "Activities: " + school.activities;
-//     let programmes = document.createElement("li");
-//     programmes.textContent = "Programmes: " + school.programmes;
-
-//     card.appendChild(name);
-//     card.appendChild(activities);
-//     card.appendChild(programmes);
-//     outputList.appendChild(card);
-// }
 
 getStudents()
-//getSchools();
-//sortByAge()
