@@ -13,7 +13,11 @@ let searchButton = document.querySelector("#searchbutton");
 
 document.body.style.background = "lightblue";
 
-
+// let getData = async (URL) => {
+//   let response = await fetch(URL);
+//   let data = await response.json();
+//   return data;
+// };
 
 async function getStudents() {
   let response = await fetch("https://api.mocki.io/v2/01047e91/students");
@@ -213,9 +217,7 @@ let sortByLastNameDown = async () =>{
          let programmes = document.createElement("li");
          programmes.textContent = "Programmes: " + school.programmes;
    
-         
-         
-         if(allProgrammes[0] === programme || allProgrammes[1] === programme){
+          if(allProgrammes[0] === programme || allProgrammes[1] === programme){
               let hasActivity = false;
                studentHobbies.forEach((hobby) =>{
                  if(allActivities.includes(hobby)){
@@ -223,7 +225,7 @@ let sortByLastNameDown = async () =>{
                  };
             });
              if(hasActivity === true){
-               name.style.color ="yellow";
+               name.style.color = "#fff700";
              }
             }
 
