@@ -1,3 +1,5 @@
+// Hämtar alla element från HTML:en och sparar i variabler 
+
 let studentList = document.querySelector("#leftList");
 let outputList = document.querySelector("#rightList")
 let sortEdu = document.querySelector("#sortE");
@@ -11,14 +13,10 @@ let sortLastDownBtn = document.querySelector("#sortLastd");
 let searchInput = document.querySelector("#search");
 let searchButton = document.querySelector("#searchbutton");
 
+// Färgar bakgrunden
 document.body.style.background = "lightblue";
 
-// let getData = async (URL) => {
-//   let response = await fetch(URL);
-//   let data = await response.json();
-//   return data;
-// };
-
+// Hämtar student-data och Skriver ut i DOM:en. Detta visas från från start 
 async function getStudents() {
   let response = await fetch("https://api.mocki.io/v2/01047e91/students");
   let data = await response.json();
@@ -27,48 +25,60 @@ async function getStudents() {
   });
 }
 
-searchButton.addEventListener(("click"), () =>{
+// Sökknappen. Rensar outputlistan och anropar findstudent(). Visar i outpulistan
+searchButton.addEventListener(("click"), () => {
   outputList.textContent = "";
   findStudent();
 })
 
+// När man valt en utbildning i dropdownen så trycker man på knappen Sort-education. 
+// Rensar då outputlistan och anropar sortByEducation().
 getEdu.addEventListener(("click"), () => {
   outputList.textContent = "";
   sortByEducation();
 });
 
-sortAgeUpBtn.addEventListener(("click"), ()=> {
+// Rensar outputlistan och anropar sortAgeUp(). Visar sortering med yngst först i outputlistan .
+sortAgeUpBtn.addEventListener(("click"), () => {
     outputList.textContent = "";
     sortByAgeUp();
 });
 
-sortAgeDownBtn.addEventListener(("click"), ()=> {
+// Rensar outputlistan och anropar sortAgeDown(). Visar sortering med äldst först i outputlistan .
+sortAgeDownBtn.addEventListener(("click"), () => {
   outputList.textContent = "";
   sortByAgeDown();
 });
 
-
-sortFirstUpBtn.addEventListener(("click"), ()=> {
+// Rensar outputlistan och anropar sortByFirstNameUp(). Visar sortering av förnamn i alfabetisk ordning stigande i outputlistan
+sortFirstUpBtn.addEventListener(("click"), () => {
     outputList.textContent = "";
     sortByFirstNameUp();
 });
 
-sortFirstDownBtn.addEventListener(("click"), ()=> {
+// Rensar outputlistan och anropar sortByFirstNameDown(). Visar sortering av förnamn i alfabetisk ordning fallande i outputlistan 
+sortFirstDownBtn.addEventListener(("click"), () => {
   outputList.textContent = "";
   sortByFirstNameDown();
 });
-sortLastUpBtn.addEventListener(("click"), ()=> {
+
+// Rensar outputlistan och anropar sortByLastNameUp(). Visar sortering av efternamn i alfabetisk ordning stigande i outputlistan
+sortLastUpBtn.addEventListener(("click"), () => {
     outputList.textContent = "";
     sortByLastNameUp();
 });
 
-sortLastDownBtn.addEventListener(("click"), ()=> {
+// Rensar outputlistan och anropar sortByLastNameDown(). Visar sortering av efternamn i alfabetisk ordning fallande i outputlistan
+sortLastDownBtn.addEventListener(("click"), () => {
   outputList.textContent = "";
   sortByLastNameDown();
 });
 
-
-let findStudent = async () =>{
+// Hämtar data från API:et. Hämtar in värdet som skrivs i textfältet och omvandlar det till små bokstäver.
+// Loopar sen igenom varje student, varpå man hämtar ut förnamn, efternamn och program.
+// Skapar även en array för att spara studentens hobbys. Kontrollerar därefter om någon av studentens hobbys 
+// överensstämmer med inputvärdet. Allt som hämtas från API:et görs även om till små bokstäver
+let findStudent = async () => {
   let response = await fetch("https://api.mocki.io/v2/01047e91/students");
   let data = await response.json();
   
@@ -90,7 +100,9 @@ let findStudent = async () =>{
    }
   })
 }
-
+// Hämtar data från API:et.
+// Loopar igenom datan. Kontrollerar om varje students programval överensstämmer med värdet som hämtats
+// från dropdownen. Anropar createOutPutCard() och skapar listan med studenter
 let sortByEducation = async () =>{
   let response = await fetch("https://api.mocki.io/v2/01047e91/students");
   let data = await response.json();
@@ -101,7 +113,9 @@ let sortByEducation = async () =>{
       }
   })
 }
-
+// Hämtar data från API:et.
+// Använder array-metoden sort på den hämtade datan genom att kontrollera .age. Den sorterar datan i samma array.
+// Anropar createOutPutCard() och skriver ut den sorterade listan
 let sortByAgeUp = async () =>{
      let response = await fetch("https://api.mocki.io/v2/01047e91/students");
      let data = await response.json();
@@ -110,7 +124,10 @@ let sortByAgeUp = async () =>{
         createOutPutCard(person);
      })
 }
-
+// Hämtar data från API:et.
+// Använder array-metoden sort på den hämtade datan genom att kontrollera .age. 
+// Här vänder man på sorteringsvillkoret/ordningen. Den sorterar datan i samma array.
+// Anropar createOutPutCard() och skriver ut den sorterade listan
 let sortByAgeDown = async () =>{
   let response = await fetch("https://api.mocki.io/v2/01047e91/students");
   let data = await response.json();
@@ -119,7 +136,12 @@ let sortByAgeDown = async () =>{
      createOutPutCard(person);
   })
 }
-
+// Hämtar data från API:et.
+// Använder array-metoden sort på den hämtade datan. Hämtar förnamnen och anropar toUpperCase() för att göra om namnet
+// till stora bokstäver. Om sedan nameA är mindre än nameB så sorteras den in i elementet förre nameB. Görs genom att 
+// kontrollera värdet som returneras. 1 = större, -1 = mindre och 0 = samma namn(värde). Jämförelsen sker beroende 
+// på värdena i ASCII-tabellen där stort A kommer före B osv.
+// Skapar sen outputen genom anrop av createOutPutCard() av varje student. 
 let sortByFirstNameUp = async () =>{
     let response = await fetch("https://api.mocki.io/v2/01047e91/students");
     let data = await response.json();
@@ -138,7 +160,12 @@ let sortByFirstNameUp = async () =>{
         createOutPutCard(person);
      });
 }
-
+// Hämtar data från API:et.
+// Använder array-metoden sort på den hämtade datan. Hämtar förnamnen och anropar toUpperCase() för att göra om namnet
+// till stora bokstäver. Om sedan nameA är större än nameB så sorteras den in i elementet förre nameB. Görs genom att 
+// kontrollera värdet som returneras. 1 = större, -1 = mindre och 0 = samma namn(värde). Jämförelsen sker beroende 
+// på värdena i ASCII-tabellen där stort A kommer före B osv. Har vänt på villkoren i if() här.
+// Skapar sen outputen genom anrop av createOutPutCard() av varje student. 
 let sortByFirstNameDown = async () =>{
   let response = await fetch("https://api.mocki.io/v2/01047e91/students");
   let data = await response.json();
@@ -157,7 +184,12 @@ let sortByFirstNameDown = async () =>{
       createOutPutCard(person);
    });
 }
-
+// Hämtar data från API:et.
+// Använder array-metoden sort på den hämtade datan. Hämtar förnamnen och anropar toUpperCase() för att göra om namnet
+// till stora bokstäver. Om sedan nameA är mindre än nameB så sorteras den in i elementet förre nameB. Görs genom att 
+// kontrollera värdet som returneras. 1 = större, -1 = mindre och 0 = samma namn(värde). Jämförelsen sker beroende 
+// på värdena i ASCII-tabellen där stort A kommer före B osv.
+// Skapar sen outputen genom anrop av createOutPutCard() av varje student. 
 let sortByLastNameUp = async () =>{
     let response = await fetch("https://api.mocki.io/v2/01047e91/students");
     let data = await response.json();
@@ -176,7 +208,12 @@ let sortByLastNameUp = async () =>{
         createOutPutCard(person);
      });
 }
-
+// Hämtar data från API:et.
+// Använder array-metoden sort på den hämtade datan. Hämtar förnamnen och anropar toUpperCase() för att göra om namnet
+// till stora bokstäver. Om sedan nameA är större än nameB så sorteras den in i elementet förre nameB. Görs genom att 
+// kontrollera värdet som returneras. 1 = större, -1 = mindre och 0 = samma namn(värde). Jämförelsen sker beroende 
+// på värdena i ASCII-tabellen där stort A kommer före B osv. Har vänt på villkoren i if() här.
+// Skapar sen outputen genom anrop av createOutPutCard() av varje student. 
 let sortByLastNameDown = async () =>{
   let response = await fetch("https://api.mocki.io/v2/01047e91/students");
   let data = await response.json();
@@ -195,7 +232,9 @@ let sortByLastNameDown = async () =>{
       createOutPutCard(person);
    });
 }
-
+// Skickar med student.programme = programme och student.hobbies = hobbies som inparametrar. Hämtar data från API:et. 
+// Skapar 3 arrayer av medskickade hobbies, alla skolors school.programmes och scholl.activities.
+// Loopar igenom varje skola och Skapar sedan "kortet" med varje skolas attribut. 
  let getSchools = async (programme, hobbies) =>{
    let response = await fetch("https://api.mocki.io/v2/01047e91/schools");
      let schools = await response.json();
@@ -216,8 +255,12 @@ let sortByLastNameDown = async () =>{
          activities.textContent = "Activities: " + school.activities;
          let programmes = document.createElement("li");
          programmes.textContent = "Programmes: " + school.programmes;
-   
-          if(allProgrammes[0] === programme || allProgrammes[1] === programme){
+
+// Kontrollerar sedan om studentens programval är varje skolas utbildning 1 eller utbildning 2
+// Loppar sedan igenom alla studentens hobbys och kontrollerar om den finns med på skolans aktiviteter med includes()
+// Skapar en boolean hasActivities som styrvariabel. Kontrollerar sedan om variabeln ändrats, om minst en hobby finns som aktivitet
+// Ändrar då skolans namn-attribut till gul färg.
+            if(allProgrammes[0] === programme || allProgrammes[1] === programme){
               let hasActivity = false;
                studentHobbies.forEach((hobby) =>{
                  if(allActivities.includes(hobby)){
@@ -229,6 +272,15 @@ let sortByLastNameDown = async () =>{
              }
             }
 
+// Kontrollerar även här om studentens programval är varje skolas utbildning 1 eller utbildning 2
+// Skapar en boolean hasAll för att kolla om skolan har alla studentens hobbys.
+// Loopar sedan igenom studentens alla hobbys och använder indexOf() som returnerar -1 om hobbyn inte finns med 
+// i skolans aktivitets-array. Om man upptäcker att en hobby inte finns med i allActivities
+// så ändras hasAll till false. Kollar sedan om hasAll fortfarande är true efter man loppat igenom alla hobbys. 
+// Ändrar då skolans namn till färgen grön. 
+// Denna if() ligger efter den första if(). Om villkoret nedan uppfylls så upfylls alltid villkoret ovan.
+// Har utbildningen alla studentens aktiviteter så har den alltid även en aktivitet. 
+// Så först färgas skolnamnet gult ovan för att sedan färgas grönt om nedan villkor uppfylls. 
           if(allProgrammes[0] === programme || allProgrammes[1] === programme){
               let hasAll = true;
                
@@ -240,9 +292,7 @@ let sortByLastNameDown = async () =>{
             if(hasAll === true){
                 name.style.color = "green";
              }
-          }
-        
-           
+          }       
           card.appendChild(name);
           card.appendChild(activities);
           card.appendChild(programmes);
@@ -250,7 +300,11 @@ let sortByLastNameDown = async () =>{
          });
         }
          
-
+// Här skapar man upp alla HTML-element som man lägger i ett kort för att presentera alla studenter
+// från start när man går in på sidan. 
+// Lägger även till en EventListener till varje kort som anropar getSchools() och skickar med studentens 
+// programval och studentens hobbys. Vid varje klick på en student så rensar man outPutListan innan man skapar de
+// nya skolkorten.
   let createInputCard = (student) => {
 
     let card = document.createElement("div")
@@ -286,6 +340,9 @@ let sortByLastNameDown = async () =>{
     studentList.appendChild(card);
 }
 
+// Här skapar man upp alla HTML-element som man lägger i ett kort för att presentera alla studenter
+// Skapar listelement och lägger in alla attribut i kortet (card)
+// Anropas sedan av varje knapp på sidan för att skriva ut alla studenter, sorterat på alla möjliga sätt. 
 let createOutPutCard = (student) => {
 
     let card = document.createElement("div")
@@ -314,7 +371,5 @@ let createOutPutCard = (student) => {
     card.appendChild(programme);
     outputList.appendChild(card);
 }
-
-
-
+// Anropar getStudents() för att skriva ut alla studentkort på sidan.
 getStudents()
