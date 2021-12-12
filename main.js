@@ -138,9 +138,9 @@ let sortByAgeDown = async () =>{
 }
 // Hämtar data från API:et.
 // Använder array-metoden sort på den hämtade datan. Hämtar förnamnen och anropar toUpperCase() för att göra om namnet
-// till stora bokstäver. Om sedan nameA är mindre än nameB så sorteras den in i elementet förre nameB. Görs genom att 
-// kontrollera värdet som returneras. 1 = större, -1 = mindre och 0 = samma namn(värde). Jämförelsen sker beroende 
-// på värdena i ASCII-tabellen där stort A kommer före B osv.
+// till stora bokstäver. Om sedan nameA är mindre än nameB så sorteras den in i elementet före nameB. Görs genom att 
+// kontrollera värdet som returneras. 1 = större, -1 = mindre och 0 = samma namn(värde)-behåller ordningen. 
+// Jämförelsen sker beroende på värdena i ASCII-tabellen där stort A kommer före B osv.
 // Skapar sen outputen genom anrop av createOutPutCard() av varje student. 
 let sortByFirstNameUp = async () =>{
     let response = await fetch("https://api.mocki.io/v2/01047e91/students");
@@ -162,9 +162,9 @@ let sortByFirstNameUp = async () =>{
 }
 // Hämtar data från API:et.
 // Använder array-metoden sort på den hämtade datan. Hämtar förnamnen och anropar toUpperCase() för att göra om namnet
-// till stora bokstäver. Om sedan nameA är större än nameB så sorteras den in i elementet förre nameB. Görs genom att 
-// kontrollera värdet som returneras. 1 = större, -1 = mindre och 0 = samma namn(värde). Jämförelsen sker beroende 
-// på värdena i ASCII-tabellen där stort A kommer före B osv. Har vänt på villkoren i if() här.
+// till stora bokstäver. Om sedan nameA är mindre än nameB så sorteras den in i elementet efter nameB. Görs genom att 
+// kontrollera värdet som returneras. 1 = större, -1 = mindre och 0 = samma namn(värde)-behåller ordningen. 
+// Jämförelsen sker beroende på värdena i ASCII-tabellen där stort A kommer före B osv. Har vänt på villkoren i if() här.
 // Skapar sen outputen genom anrop av createOutPutCard() av varje student. 
 let sortByFirstNameDown = async () =>{
   let response = await fetch("https://api.mocki.io/v2/01047e91/students");
@@ -185,10 +185,10 @@ let sortByFirstNameDown = async () =>{
    });
 }
 // Hämtar data från API:et.
-// Använder array-metoden sort på den hämtade datan. Hämtar förnamnen och anropar toUpperCase() för att göra om namnet
-// till stora bokstäver. Om sedan nameA är mindre än nameB så sorteras den in i elementet förre nameB. Görs genom att 
-// kontrollera värdet som returneras. 1 = större, -1 = mindre och 0 = samma namn(värde). Jämförelsen sker beroende 
-// på värdena i ASCII-tabellen där stort A kommer före B osv.
+// Använder array-metoden sort på den hämtade datan. Hämtar efternamnen och anropar toUpperCase() för att göra om namnet
+// till stora bokstäver. Om sedan nameA är mindre än nameB så sorteras den in i elementet före nameB. Görs genom att 
+// kontrollera värdet som returneras. 1 = större, -1 = mindre och 0 = samma namn(värde)-behåller ordningen. 
+// Jämförelsen sker beroende på värdena i ASCII-tabellen där stort A kommer före B osv.
 // Skapar sen outputen genom anrop av createOutPutCard() av varje student. 
 let sortByLastNameUp = async () =>{
     let response = await fetch("https://api.mocki.io/v2/01047e91/students");
@@ -209,10 +209,10 @@ let sortByLastNameUp = async () =>{
      });
 }
 // Hämtar data från API:et.
-// Använder array-metoden sort på den hämtade datan. Hämtar förnamnen och anropar toUpperCase() för att göra om namnet
-// till stora bokstäver. Om sedan nameA är större än nameB så sorteras den in i elementet förre nameB. Görs genom att 
-// kontrollera värdet som returneras. 1 = större, -1 = mindre och 0 = samma namn(värde). Jämförelsen sker beroende 
-// på värdena i ASCII-tabellen där stort A kommer före B osv. Har vänt på villkoren i if() här.
+// Använder array-metoden sort på den hämtade datan. Hämtar efternamnen och anropar toUpperCase() för att göra om namnet
+// till stora bokstäver. Om sedan nameA är mindre än nameB så sorteras den in i elementet efter nameB. Görs genom att 
+// kontrollera värdet som returneras. 1 = större, -1 = mindre och 0 = samma namn(värde)-behåller ordningen. 
+// Jämförelsen sker beroende på värdena i ASCII-tabellen där stort A kommer före B osv. Har vänt på villkoren i if() här.
 // Skapar sen outputen genom anrop av createOutPutCard() av varje student. 
 let sortByLastNameDown = async () =>{
   let response = await fetch("https://api.mocki.io/v2/01047e91/students");
@@ -238,8 +238,7 @@ let sortByLastNameDown = async () =>{
  let getSchools = async (programme, hobbies) =>{
    let response = await fetch("https://api.mocki.io/v2/01047e91/schools");
      let schools = await response.json();
-
-    let studentHobbies = hobbies;
+      let studentHobbies = hobbies;
       
       schools.forEach((school) =>{
         let allProgrammes = school.programmes;
@@ -262,11 +261,11 @@ let sortByLastNameDown = async () =>{
 // Ändrar då skolans namn-attribut till gul färg.
             if(allProgrammes[0] === programme || allProgrammes[1] === programme){
               let hasActivity = false;
-               studentHobbies.forEach((hobby) =>{
+              studentHobbies.forEach((hobby) =>{
                  if(allActivities.includes(hobby)){
                    hasActivity = true;
                  };
-            });
+              });
              if(hasActivity === true){
                name.style.color = "#fff700";
              }
@@ -283,7 +282,6 @@ let sortByLastNameDown = async () =>{
 // Så först färgas skolnamnet gult ovan för att sedan färgas grönt om nedan villkor uppfylls. 
           if(allProgrammes[0] === programme || allProgrammes[1] === programme){
               let hasAll = true;
-               
             for(let i = 0; i < studentHobbies.length; i++){
               if((allActivities.indexOf(studentHobbies[i]) === -1)){
                   hasAll = false;
@@ -292,7 +290,7 @@ let sortByLastNameDown = async () =>{
             if(hasAll === true){
                 name.style.color = "green";
              }
-          }       
+            }       
           card.appendChild(name);
           card.appendChild(activities);
           card.appendChild(programmes);
@@ -335,7 +333,6 @@ let sortByLastNameDown = async () =>{
     card.addEventListener(("click"), () =>{
       outputList.textContent = "";
       getSchools(student.programme, student.hobbies);
-
     });
     studentList.appendChild(card);
 }
