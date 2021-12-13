@@ -235,6 +235,7 @@ let sortByLastNameDown = async () =>{
 // Skickar med student.programme = programme och student.hobbies = hobbies som inparametrar. Hämtar data från API:et. 
 // Skapar 3 arrayer av medskickade hobbies, alla skolors school.programmes och scholl.activities.
 // Loopar igenom varje skola och Skapar sedan "kortet" med varje skolas attribut. 
+// Färgar "kortet" rött och lägger till sist i listan.
  let getSchools = async (programme, hobbies) =>{
    let response = await fetch("https://api.mocki.io/v2/01047e91/schools");
      let schools = await response.json();
@@ -249,16 +250,21 @@ let sortByLastNameDown = async () =>{
         card.style.background = "white";
          let name = document.createElement("li");
          name.textContent = "Name: " + school.name;
-         name.style.color ="red";
          let activities = document.createElement("li");
          activities.textContent = "Activities: " + school.activities;
          let programmes = document.createElement("li");
          programmes.textContent = "Programmes: " + school.programmes;
+         name.style.color = "red";
+         card.appendChild(name);
+         card.appendChild(activities);
+         card.appendChild(programmes);
+         outputList.insertBefore(card, outputList.childNodes[outputList.length -1]);
 
 // Kontrollerar sedan om studentens programval är varje skolas utbildning 1 eller utbildning 2
 // Loppar sedan igenom alla studentens hobbys och kontrollerar om den finns med på skolans aktiviteter med includes()
 // Skapar en boolean hasActivities som styrvariabel. Kontrollerar sedan om variabeln ändrats, om minst en hobby finns som aktivitet
 // Ändrar då skolans namn-attribut till gul färg.
+// Lägger sen till överst i listan med childNodes[0].
             if(allProgrammes[0] === programme || allProgrammes[1] === programme){
               let hasActivity = false;
               studentHobbies.forEach((hobby) =>{
@@ -268,6 +274,11 @@ let sortByLastNameDown = async () =>{
               });
              if(hasActivity === true){
                name.style.color = "#fff700";
+               yellow = true;
+               card.appendChild(name);
+               card.appendChild(activities);
+               card.appendChild(programmes);
+               outputList.insertBefore(card, outputList.childNodes[0]);
              }
             }
 
@@ -280,6 +291,7 @@ let sortByLastNameDown = async () =>{
 // Denna if() ligger efter den första if(). Om villkoret nedan uppfylls så upfylls alltid villkoret ovan.
 // Har utbildningen alla studentens aktiviteter så har den alltid även en aktivitet. 
 // Så först färgas skolnamnet gult ovan för att sedan färgas grönt om nedan villkor uppfylls. 
+// Om detta villkoret uppfylls så läggs detta element som det nya översta.
           if(allProgrammes[0] === programme || allProgrammes[1] === programme){
               let hasAll = true;
             for(let i = 0; i < studentHobbies.length; i++){
@@ -289,12 +301,14 @@ let sortByLastNameDown = async () =>{
               }
             if(hasAll === true){
                 name.style.color = "green";
+                green = true;
+                card.appendChild(name);
+                card.appendChild(activities);
+                card.appendChild(programmes);
+                outputList.insertBefore(card, outputList.childNodes[0]);
              }
-            }       
-          card.appendChild(name);
-          card.appendChild(activities);
-          card.appendChild(programmes);
-          outputList.appendChild(card);
+            }
+           
          });
         }
          
